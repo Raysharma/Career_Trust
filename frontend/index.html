@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerTrust AI | Job Fraud Detector</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="container">
+        <header>
+            <h1>CareerTrust AI</h1>
+            <p>Advanced Deep Learning & Hybrid Fraud Detection Pipeline</p>
+            <div class="db-status-badge" id="db-status">
+                <span class="status-dot"></span>
+                <span id="db-status-text">Database Checking...</span>
+            </div>
+        </header>
+
+        <div class="navigation-tabs">
+            <button class="nav-btn active" id="btn-nav-scan">🔍 Analyze Job</button>
+            <button class="nav-btn" id="btn-nav-history">📜 Recent Scans</button>
+        </div>
+
+        <!-- SCANNER VIEW -->
+        <div id="view-scanner">
+            <main class="glass-panel">
+                <div class="input-group">
+                    <div class="tabs">
+                        <button class="tab-btn active" id="tab-url">Fetch from URL</button>
+                        <button class="tab-btn" id="tab-text">Paste Text (Fallback)</button>
+                    </div>
+                    
+                    <div id="url-input-section">
+                        <label for="job-url">🔗 Job Posting URL</label>
+                        <input type="text" id="job-url" placeholder="https://www.linkedin.com/jobs/view/... or company site">
+                        <p class="helper-text">We will fetch the text and company details automatically.</p>
+                    </div>
+
+                    <div id="text-input-section" style="display: none;">
+                        <label for="job-desc">📝 Job Description</label>
+                        <textarea id="job-desc" placeholder="Paste the full job description here..."></textarea>
+                        <label for="company-url" style="margin-top: 1rem;">🌐 Company URL (Optional)</label>
+                        <input type="text" id="company-url" placeholder="e.g. techcorp.com">
+                    </div>
+
+                    <button id="analyze-btn" class="btn-primary">
+                        <span id="btn-text">Analyze Job Posting</span>
+                        <div class="spinner" id="btn-spinner"></div>
+                    </button>
+                </div>
+            </main>
+
+            <section id="results" class="glass-panel">
+                <div class="score-container">
+                    <div class="main-score">
+                        <div class="score-circle" id="trust-score">--</div>
+                        <div class="risk-level" id="risk-level">PENDING</div>
+                    </div>
+                    
+                    <div class="breakdown">
+                        <div class="bar-item">
+                            <div class="bar-header"><span>🤖 BERT AI Context</span><span id="bert-val">0%</span></div>
+                            <div class="bar-bg"><div class="bar-fill" id="bert-bar" style="width: 0%"></div></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-header"><span>🚩 Text Red Flags</span><span id="text-val">0%</span></div>
+                            <div class="bar-bg"><div class="bar-fill" id="text-bar" style="width: 0%"></div></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-header"><span>🌐 Domain Verification</span><span id="domain-val">0%</span></div>
+                            <div class="bar-bg"><div class="bar-fill" id="domain-bar" style="width: 0%"></div></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-header"><span>📧 Contact Legitimacy</span><span id="contact-val">0%</span></div>
+                            <div class="bar-bg"><div class="bar-fill" id="contact-bar" style="width: 0%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <h3>Analysis Breakdown</h3>
+                    <ul id="reasons-list">
+                        <!-- Reasons populated by JS -->
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- HISTORY VIEW -->
+        <div id="view-history" style="display: none;">
+            <main class="glass-panel">
+                <div class="history-header">
+                    <h2>Recent Job Analyses</h2>
+                    <button class="btn-secondary" id="refresh-history-btn">🔄 Refresh</button>
+                </div>
+                
+                <div class="history-list" id="history-container">
+                    <!-- History items populated by JS -->
+                    <div class="history-loading">Loading scan logs from database...</div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
